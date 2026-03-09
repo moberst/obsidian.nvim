@@ -99,6 +99,7 @@ There's one entry point user command for this plugin: `Obsidian`
 - `:Obsidian quick_switch` - switch to another note in your vault, searching by its name with a picker
 - `:Obsidian search [QUERY]` - search for (or create) notes in your vault using `ripgrep` with your preferred picker
 - `:Obsidian tags [TAG ...]` - get a picker list of all occurrences of the given tags
+- `:Obsidian rename_tag [OLD] [NEW]` - rename a tag across the entire vault (inline and frontmatter), including nested tags
 - `:Obsidian workspace [NAME]` - switch to another workspace
 
 #### Note commands

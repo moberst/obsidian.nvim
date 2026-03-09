@@ -220,6 +220,8 @@ M.register("open", { nargs = "*", complete = M.note_complete })
 
 M.register("tags", { nargs = "*" })
 
+M.register("rename_tag", { nargs = "*" })
+
 M.register("search", { nargs = "?" })
 
 M.register("new_from_template", { nargs = "*" })
