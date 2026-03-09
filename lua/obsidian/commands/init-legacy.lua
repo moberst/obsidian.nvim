@@ -26,6 +26,7 @@ local command_lookups = {
   ObsidianPasteImg = "obsidian.commands.paste_img",
   ObsidianExtractNote = "obsidian.commands.extract_note",
   ObsidianTOC = "obsidian.commands.toc",
+  ObsidianRenameTag = "obsidian.commands.rename_tag",
 }
 
 local M = setmetatable({
@@ -180,5 +181,7 @@ M.register(
 )
 
 M.register("ObsidianTOC", { opts = { nargs = 0, desc = "Load the table of contents into a picker" } })
+
+M.register("ObsidianRenameTag", { opts = { nargs = "*", desc = "Rename a tag across the vault" } })
 
 return M

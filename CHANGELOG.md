@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+
+- `:Obsidian rename_tag` command (and legacy `:ObsidianRenameTag`) to rename a tag across the entire vault, including both inline `#tags` and frontmatter tags. Supports nested tag hierarchies.
+
 ## [v3.15.10](https://github.com/obsidian-nvim/obsidian.nvim/releases/tag/v3.15.10) - 2026-02-18
 
 ### Added
