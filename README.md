@@ -104,6 +104,7 @@ There's one entry point user command for this plugin: `Obsidian`
 - `:Obsidian sync [SUBCMD]` - use [obsidian-headless](https://obsidian.md/help/sync/headless) to access official obsidian sync service. Default off, enable with `opts.sync.enabled = true`, for more see [Sync](https://github.com/obsidian-nvim/obsidian.nvim/wiki/Sync).
 - `:Obsidian tags [TAG ...]` - get a picker list of all occurrences of the given tags
 - `:Obsidian unique_note [TITLE]` - create a new note with a unique, timestamp-based ID
+- `:Obsidian rename_tag [OLD] [NEW]` - rename a tag across the entire vault (inline and frontmatter), including nested tags
 - `:Obsidian workspace [NAME]` - switch to another workspace
 
 #### Note commands
