@@ -166,9 +166,9 @@ return {
       insert_link = "<C-l>",
     },
     tag_mappings = {
-      tag_note = "<C-x>",
+      -- tag_note = "<C-x>",
       insert_tag = "<C-l>",
-      rename_tag = "<C-a>",
+      rename_tag = "<C-x>",
     },
   },
 
