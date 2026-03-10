@@ -242,6 +242,14 @@ M._tag_selection_mappings = function()
     }
   end
 
+  if key_is_set(Obsidian.opts.picker.tag_mappings.rename_tag) then
+    mappings[Obsidian.opts.picker.tag_mappings.rename_tag] = {
+      desc = "rename tag",
+      callback = Mappings.rename_tag,
+      fallback_to_query = true,
+    }
+  end
+
   return mappings
 end
 
