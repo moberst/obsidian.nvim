@@ -152,6 +152,7 @@ return {
   ---
   ---@field tag_note? string
   ---@field insert_tag? string
+  ---@field rename_tag? string
 
   ---@class obsidian.config.PickerOpts
   ---
@@ -167,6 +168,7 @@ return {
     tag_mappings = {
       tag_note = "<C-x>",
       insert_tag = "<C-l>",
+      rename_tag = "<C-a>",
     },
   },
 

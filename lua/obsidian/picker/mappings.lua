@@ -59,6 +59,13 @@ M.insert_tag = function(entry)
   vim.api.nvim_put({ "#" .. tag }, "", false, true)
 end
 
+---@param entry obsidian.PickerEntry
+M.rename_tag = function(entry)
+  local tag = entry.user_data
+  local rename_cmd = require "obsidian.commands.rename_tag"
+  rename_cmd { fargs = { tag } }
+end
+
 M.new_note = function(query)
   if not query or vim.trim(query) == "" then
     return
