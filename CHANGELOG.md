@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `:Obsidian insert_link_by_tag <tag>` command (and legacy `:ObsidianInsertLinkByTag`) to insert a link to the most recently modified note with a given tag. Designed for fast keymap-driven workflows.
 - `:Obsidian rename_tag` command (and legacy `:ObsidianRenameTag`) to rename a tag across the entire vault, including both inline `#tags` and frontmatter tags. Supports nested tag hierarchies.
 
 ## [v3.15.10](https://github.com/obsidian-nvim/obsidian.nvim/releases/tag/v3.15.10) - 2026-02-18

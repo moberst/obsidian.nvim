@@ -27,6 +27,7 @@ local command_lookups = {
   ObsidianExtractNote = "obsidian.commands.extract_note",
   ObsidianTOC = "obsidian.commands.toc",
   ObsidianRenameTag = "obsidian.commands.rename_tag",
+  ObsidianInsertLinkByTag = "obsidian.commands.insert_link_by_tag",
 }
 
 local M = setmetatable({
@@ -183,5 +184,10 @@ M.register(
 M.register("ObsidianTOC", { opts = { nargs = 0, desc = "Load the table of contents into a picker" } })
 
 M.register("ObsidianRenameTag", { opts = { nargs = "*", desc = "Rename a tag across the vault" } })
+
+M.register(
+  "ObsidianInsertLinkByTag",
+  { opts = { nargs = 1, desc = "Insert link to most recent note with a given tag" } }
+)
 
 return M

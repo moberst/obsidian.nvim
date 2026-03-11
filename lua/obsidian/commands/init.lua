@@ -213,6 +213,8 @@ M.register("tags", { nargs = "*" })
 
 M.register("rename_tag", { nargs = "*" })
 
+M.register("insert_link_by_tag", { nargs = 1 })
+
 M.register("search", { nargs = "?" })
 
 M.register("new_from_template", { nargs = "*" })
