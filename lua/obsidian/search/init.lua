@@ -964,24 +964,25 @@ M.find_tags_async = function(term, callback, opts)
       ---@type obsidian.TagLocation[]
       local tags_list = {}
 
-      -- Order by path.
-      local paths = {}
-      for path, idx in pairs(path_order) do
-        paths[idx] = path
-      end
-
-      -- Gather results in path order.
-      for _, path in ipairs(paths) do
+      -- Gather all results.
+      for path, _ in pairs(path_order) do
         local tag_locs = path_to_tag_loc[path]
         if tag_locs ~= nil then
-          table.sort(tag_locs, function(a, b)
-            return a.line < b.line
-          end)
           for _, tag_loc in ipairs(tag_locs) do
             tags_list[#tags_list + 1] = tag_loc
           end
         end
       end
+
+      -- Sort by path name, then by line number within each file.
+      table.sort(tags_list, function(a, b)
+        local path_a = tostring(a.path)
+        local path_b = tostring(b.path)
+        if path_a ~= path_b then
+          return path_a > path_b
+        end
+        return a.line < b.line
+      end)
 
       -- Log any errors.
       if first_err ~= nil and first_err_path ~= nil then
