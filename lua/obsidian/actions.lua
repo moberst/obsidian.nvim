@@ -564,6 +564,11 @@ M.unique_link = function(timestamp)
   return link
 end
 
+---@param tag string
+M.insert_link_by_tag = function(tag)
+  require "obsidian.commands.insert_link_by_tag" { args = tag, fargs = { tag } }
+end
+
 M.add_property = function()
   local note = assert(api.current_note(0))
 
