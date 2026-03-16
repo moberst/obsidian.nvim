@@ -9,6 +9,7 @@ return function(data)
   local fargs = data.fargs or {}
   local tag = fargs[1] or ""
   local label = fargs[2]
+  local offset = tonumber(fargs[3]) or 0
   -- Strip leading '#' if provided
   tag = tag:gsub("^#", "")
 
@@ -48,8 +49,13 @@ return function(data)
       return mtime_a > mtime_b
     end)
 
-    local most_recent = unique_locs[1]
-    local note = Note.from_file(tostring(most_recent.path))
+    if offset + 1 > #unique_locs then
+      log.warn("Offset %d is out of range (only %d notes found with tag '#%s')", offset, #unique_locs, tag)
+      return
+    end
+
+    local selected = unique_locs[offset + 1]
+    local note = Note.from_file(tostring(selected.path))
     local link = note:format_link(label and { label = label } or nil)
 
     vim.schedule(function()

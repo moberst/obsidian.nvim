@@ -566,10 +566,14 @@ end
 
 ---@param tag string
 ---@param label string|?
-M.insert_link_by_tag = function(tag, label)
+---@param offset integer|?
+M.insert_link_by_tag = function(tag, label, offset)
   local fargs = { tag }
   if label then
     fargs[2] = label
+  end
+  if offset then
+    fargs[3] = tostring(offset)
   end
   require "obsidian.commands.insert_link_by_tag" { args = tag, fargs = fargs }
 end
