@@ -140,15 +140,27 @@ Workspace.set = function(workspace)
   dir:mkdir { parents = true }
 
   if options.notes_subdir ~= nil then
-    (dir / options.notes_subdir):mkdir { parents = true }
+    local subdir_path = Path.new(options.notes_subdir)
+    if not subdir_path:is_absolute() then
+      subdir_path = dir / options.notes_subdir
+    end
+    subdir_path:mkdir { parents = true }
   end
 
   if options.templates.enabled and options.templates.folder then
-    (dir / options.templates.folder):mkdir { parents = true }
+    local tmpl_path = Path.new(options.templates.folder)
+    if not tmpl_path:is_absolute() then
+      tmpl_path = dir / options.templates.folder
+    end
+    tmpl_path:mkdir { parents = true }
   end
 
   if options.daily_notes.enabled and options.daily_notes.folder then
-    (dir / options.daily_notes.folder):mkdir { parents = true }
+    local daily_path = Path.new(options.daily_notes.folder)
+    if not daily_path:is_absolute() then
+      daily_path = dir / options.daily_notes.folder
+    end
+    daily_path:mkdir { parents = true }
   end
 
   -- Setup UI add-ons.
