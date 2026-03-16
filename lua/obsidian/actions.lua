@@ -569,8 +569,13 @@ M.unique_link = function(timestamp)
 end
 
 ---@param tag string
-M.insert_link_by_tag = function(tag)
-  require "obsidian.commands.insert_link_by_tag" { args = tag, fargs = { tag } }
+---@param label string|?
+M.insert_link_by_tag = function(tag, label)
+  local fargs = { tag }
+  if label then
+    fargs[2] = label
+  end
+  require "obsidian.commands.insert_link_by_tag" { args = tag, fargs = fargs }
 end
 
 M.add_property = function()
