@@ -6,7 +6,9 @@ local Note = require "obsidian.note"
 
 ---@param data obsidian.CommandArgs
 return function(data)
-  local tag = data.args or ""
+  local fargs = data.fargs or {}
+  local tag = fargs[1] or ""
+  local label = fargs[2]
   -- Strip leading '#' if provided
   tag = tag:gsub("^#", "")
 
@@ -48,7 +50,7 @@ return function(data)
 
     local most_recent = unique_locs[1]
     local note = Note.from_file(tostring(most_recent.path))
-    local link = note:format_link()
+    local link = note:format_link(label and { label = label } or nil)
 
     vim.schedule(function()
       vim.api.nvim_put({ link }, "", false, true)

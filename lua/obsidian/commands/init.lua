@@ -222,7 +222,7 @@ M.register("tags", { nargs = "*" })
 
 M.register("rename_tag", { nargs = "*" })
 
-M.register("insert_link_by_tag", { nargs = 1 })
+M.register("insert_link_by_tag", { nargs = "+" })
 
 M.register("search", { nargs = "?" })
 
