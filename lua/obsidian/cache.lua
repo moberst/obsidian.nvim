@@ -78,4 +78,32 @@ NoteCache.size = function(self)
   return vim.tbl_count(self._entries)
 end
 
+---Eagerly populate the cache by scanning all markdown files in the given directory.
+---Runs asynchronously so it does not block Neovim startup.
+---
+---@param dir string|obsidian.Path Root directory to scan.
+---@param opts obsidian.note.LoadOpts|?
+NoteCache.populate_async = function(self, dir, opts)
+  local search = require "obsidian.search"
+  local log = require "obsidian.log"
+
+  opts = opts or {}
+
+  local count = 0
+  search.find_async(dir, "", nil, function(path_str)
+    vim.schedule(function()
+      local ok, err = pcall(self.get, self, path_str, opts)
+      if ok then
+        count = count + 1
+      else
+        log.debug("Cache populate: failed to parse %s: %s", path_str, err)
+      end
+    end)
+  end, function(_)
+    vim.schedule(function()
+      log.info("Note cache populated (%d notes)", self:size())
+    end)
+  end)
+end
+
 return NoteCache

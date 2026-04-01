@@ -100,6 +100,13 @@ obsidian.setup = function(user_opts)
   -- Set global client.
   obsidian._client = client
 
+  -- Eagerly populate the note cache in the background.
+  if Obsidian.note_cache then
+    Obsidian.note_cache:populate_async(Obsidian.dir, {
+      max_lines = Obsidian.opts.search.max_lines,
+    })
+  end
+
   obsidian.util.fire_callback("post_setup", Obsidian.opts.callbacks.post_setup)
 
   return client
