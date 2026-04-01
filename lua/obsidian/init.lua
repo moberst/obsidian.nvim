@@ -53,7 +53,11 @@ obsidian.setup = function(user_opts)
   ---@field buf_dir obsidian.Path|? Parent directory of the current buffer.
   ---@field opts obsidian.config.Internal Current options.
   ---@field _opts obsidian.config.Internal User input options.
+  ---@field note_cache obsidian.NoteCache|? In-memory note cache for parsed notes.
   Obsidian = {}
+
+  local NoteCache = require "obsidian.cache"
+  Obsidian.note_cache = NoteCache.new()
 
   local opts = obsidian.config.normalize(user_opts)
 

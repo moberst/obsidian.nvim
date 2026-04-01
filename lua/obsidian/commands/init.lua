@@ -262,6 +262,8 @@ M.register("helpgrep", { nargs = "?" })
 
 M.register("unique_note", { nargs = "?" })
 
+M.register("refresh_cache", { nargs = 0 })
+
 ---------------------
 ---- note action ----
 ---------------------

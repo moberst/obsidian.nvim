@@ -856,6 +856,16 @@ M.find_tags_async = function(term, callback, opts)
   ---@param path obsidian.Path
   ---@return { [1]: obsidian.Note, [2]: {[1]: integer, [2]: integer}[] }
   local load_note = function(path)
+    local path_str = tostring(path)
+    if Obsidian.note_cache then
+      local entry = Obsidian.note_cache:get(path_str, {
+        max_lines = Obsidian.opts.search.max_lines,
+      })
+      if entry then
+        return { entry.note, entry.code_blocks }
+      end
+    end
+    -- Fallback: parse without cache
     local note = Note.from_file(path, {
       load_contents = true,
       max_lines = Obsidian.opts.search.max_lines,

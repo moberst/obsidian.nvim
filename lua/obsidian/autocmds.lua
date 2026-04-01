@@ -99,6 +99,16 @@ vim.api.nvim_create_autocmd("FileType", {
       if not vim.b[ev.buf].obsidian_buffer then
         return
       end
+
+      -- Invalidate the note cache for the saved file.
+      if Obsidian.note_cache then
+        local buf_path = vim.api.nvim_buf_get_name(ev.buf)
+        if buf_path and buf_path ~= "" then
+          local resolved = tostring(Path.new(buf_path):resolve())
+          Obsidian.note_cache:invalidate(resolved)
+        end
+      end
+
       exec_autocmds "ObsidianNoteWritePost"
     end)
   end,

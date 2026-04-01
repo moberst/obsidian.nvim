@@ -136,6 +136,10 @@ Workspace.set = function(workspace)
   Obsidian.dir = dir
   Obsidian.opts = options
 
+  if Obsidian.note_cache then
+    Obsidian.note_cache:clear()
+  end
+
   -- Ensure directories exist.
   dir:mkdir { parents = true }
 
