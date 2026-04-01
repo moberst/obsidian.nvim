@@ -253,6 +253,22 @@ M._tag_selection_mappings = function()
   return mappings
 end
 
+--- Get selection mappings to use for the tag notes picker (second-phase tag picker showing notes).
+---@return obsidian.PickerMappingTable
+M._tag_note_selection_mappings = function()
+  ---@type obsidian.PickerMappingTable
+  local mappings = {}
+
+  if key_is_set(Obsidian.opts.picker.tag_mappings.insert_link) then
+    mappings[Obsidian.opts.picker.tag_mappings.insert_link] = {
+      desc = "insert link",
+      callback = Mappings.insert_link,
+    }
+  end
+
+  return mappings
+end
+
 --- Get the default Picker.
 ---
 ---@param picker_name obsidian.config.Picker|?
