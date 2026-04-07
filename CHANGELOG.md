@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `:Obsidian insert_link_by_tag <tag>` command (and legacy `:ObsidianInsertLinkByTag`) to insert a link to the most recently modified note with a given tag. Designed for fast keymap-driven workflows.
+- `:Obsidian insert_all_links_by_tag <tag>` command to insert a markdown list of links to all notes with a given tag, sorted by most recently modified.
 - `:Obsidian rename_tag` command (and legacy `:ObsidianRenameTag`) to rename a tag across the entire vault, including both inline `#tags` and frontmatter tags. Supports nested tag hierarchies.
 - `insert_link` mapping (`<C-]>` by default) in the tag picker to insert a wiki-link to the selected note.
 

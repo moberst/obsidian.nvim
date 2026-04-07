@@ -105,6 +105,8 @@ There's one entry point user command for this plugin: `Obsidian`
 - `:Obsidian tags [TAG ...]` - get a picker list of all occurrences of the given tags
 - `:Obsidian unique_note [TITLE]` - create a new note with a unique, timestamp-based ID
 - `:Obsidian rename_tag [OLD] [NEW]` - rename a tag across the entire vault (inline and frontmatter), including nested tags
+- `:Obsidian insert_link_by_tag <TAG> [LABEL] [OFFSET]` - insert a link to the most recently modified note with a given tag
+- `:Obsidian insert_all_links_by_tag <TAG>` - insert a markdown list of links to all notes with a given tag, sorted by most recently modified
 - `:Obsidian workspace [NAME]` - switch to another workspace
 
 #### Note commands

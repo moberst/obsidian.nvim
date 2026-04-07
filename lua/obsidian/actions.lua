@@ -582,6 +582,11 @@ M.insert_link_by_tag = function(tag, label, offset)
   require "obsidian.commands.insert_link_by_tag" { args = tag, fargs = fargs }
 end
 
+---@param tag string
+M.insert_all_links_by_tag = function(tag)
+  require "obsidian.commands.insert_all_links_by_tag" { args = tag, fargs = { tag } }
+end
+
 M.add_property = function()
   local note = assert(api.current_note(0))
 
