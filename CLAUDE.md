@@ -22,6 +22,40 @@ The test command runs: `nvim --headless --noplugin -u ./scripts/minimal_init.lua
 
 Tests use [mini.test](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-test.md) with child Neovim processes for isolation. Test files are in `tests/` and use helpers from `tests/helpers.lua` (e.g., `h.child_vault()` for setting up isolated vault environments).
 
+## Local Customizations
+
+This fork adds several features on top of upstream `obsidian-nvim/obsidian.nvim`. Local commits live on `main` rebased on top of `upstream/main`.
+
+### Custom Commands
+
+| Command | Module | Description |
+|---------|--------|-------------|
+| `:Obsidian rename_tag [OLD] [NEW]` | `commands/rename_tag.lua` | Rename a tag across the entire vault (inline `#tags` and frontmatter). Handles nested tags and skips code blocks. Prompts for confirmation before applying. |
+| `:Obsidian insert_link_by_tag <TAG> [LABEL] [OFFSET]` | `commands/insert_link_by_tag.lua` | Insert a link to a single note matching a tag. Notes are sorted by mtime (newest first); `OFFSET` selects which one (0-indexed). Designed for keymap-driven workflows. |
+| `:Obsidian insert_all_links_by_tag <TAG>` | `commands/insert_all_links_by_tag.lua` | Insert a markdown bullet list of links to **all** notes matching a tag at the cursor position, sorted by most recently modified. |
+
+All three commands also have Lua API wrappers in `lua/obsidian/actions.lua`.
+
+### Note Cache (`lua/obsidian/cache.lua`)
+
+An in-memory cache for parsed notes and their code blocks, keyed by file path. Entries are invalidated when the file's mtime changes. Key API:
+- `get(path_str, opts)` — lazy-load and cache a note
+- `invalidate(path_str)` / `clear()` — manual invalidation
+- `populate_async(dir, opts)` — eagerly scan a directory to warm the cache on startup
+
+The cache is populated automatically during plugin setup.
+
+### Tag Picker Enhancements (`lua/obsidian/picker/init.lua`)
+
+Extra mappings added to the tag picker:
+- `insert_link` — insert a wiki-link to the selected note (bound to `<C-]>` by default)
+- `rename_tag` — trigger `:Obsidian rename_tag` on the selected tag
+
+### Other Local Fixes
+
+- Absolute paths are handled correctly for templates, daily notes, and notes subdirs
+- Tag picker results are sorted by filename instead of raw ripgrep order
+
 ## Architecture
 
 ### Global State
@@ -45,6 +79,7 @@ Individual command implementations live in `lua/obsidian/commands/<name>.lua`.
 | `lua/obsidian/init.lua` | Plugin setup, module re-exports, global state creation |
 | `lua/obsidian/workspace.lua` | Workspace detection (via `.obsidian/` folder) and per-workspace config overrides |
 | `lua/obsidian/note.lua` | Note representation — metadata, frontmatter, aliases, tags, creation |
+| `lua/obsidian/cache.lua` | In-memory note cache (local addition) — speeds up repeated tag searches |
 | `lua/obsidian/config/` | Config normalization (`init.lua`) and defaults (`default.lua`) |
 | `lua/obsidian/picker/` | Abstraction over picker backends: telescope, fzf-lua, mini.pick, snacks, default |
 | `lua/obsidian/completion/` | Completion sources (refs, tags) with adapters for nvim-cmp and blink.cmp |
