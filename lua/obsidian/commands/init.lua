@@ -211,6 +211,36 @@ M.note_complete = function(_, cmdline)
   return completions
 end
 
+---@param arg_lead string
+---@param cmdline string
+---@return string[]
+M.tag_complete = function(arg_lead, cmdline)
+  local search = require "obsidian.search"
+
+  -- Extract the tag query from the command line
+  local query = cmdline:match "^%S+%s%S+%s(.*)$" or ""
+  if query == "" then
+    query = arg_lead
+  end
+
+  -- Search for tags matching the query
+  local tag_locs = search.find_tags(query, { timeout = 5000 })
+
+  -- Deduplicate tags
+  ---@type table<string, boolean>
+  local seen = {}
+  local completions = {}
+  for _, loc in ipairs(tag_locs) do
+    if not seen[loc.tag] then
+      seen[loc.tag] = true
+      table.insert(completions, loc.tag)
+    end
+  end
+
+  table.sort(completions)
+  return completions
+end
+
 ------------------------
 ---- general action ----
 ------------------------
@@ -231,11 +261,11 @@ M.register("open", { nargs = "*", complete = M.note_complete })
 
 M.register("tags", { nargs = "*" })
 
-M.register("rename_tag", { nargs = "*" })
+M.register("rename_tag", { nargs = "*", complete = M.tag_complete })
 
-M.register("insert_link_by_tag", { nargs = "+" })
+M.register("insert_link_by_tag", { nargs = "+", complete = M.tag_complete })
 
-M.register("insert_all_links_by_tag", { nargs = 1 })
+M.register("insert_all_links_by_tag", { nargs = 1, complete = M.tag_complete })
 
 M.register("search", { nargs = "?" })
 
