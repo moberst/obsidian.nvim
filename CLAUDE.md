@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Answering user questions
+
+If the user asks about functionality in this plugin, you MUST ground your answers in the code of the repository.  For instance, if the user asks "How do I insert a link to a file?" you must find the relevant command in the documentation or in the codebase before answering.
+
 ## What This Is
 
 obsidian.nvim is a community-maintained Neovim plugin (Lua) for working with Obsidian vaults. It provides completion, navigation, templates, daily notes, and an embedded LSP — all without leaving Neovim. Requires Neovim 0.10.0+.
